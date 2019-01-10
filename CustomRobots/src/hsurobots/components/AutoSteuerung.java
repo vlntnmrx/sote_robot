@@ -54,7 +54,7 @@ public class AutoSteuerung extends Steuerung {
             }
             lastData.clear();
             leerlauf = 0;
-        } else if (lastData.size() < 2) {
+        } else if (lastData.size() < 3) {
             if (orientation < 0 || (orientation > Math.PI)) {
                 rotate(0.05);
             } else {
