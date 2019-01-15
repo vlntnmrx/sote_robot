@@ -29,22 +29,33 @@ public class AutoSteuerung extends Steuerung {
 
             double min_view = 100;
             int hindernis = -1;
-            int view = 10;
-            for (int i = 0; i < sur.length / view; i++) {
+            int view = 9;
+            int i;
+            float avg_r = 100;
+            float avg_l = 100;
+            for (i = 0; i < sur.length / view; i++) {
                 if (min_view > sur[i]) {
                     min_view = sur[i];
                     hindernis = i;
                 }
+                avg_r += sur[i];
             }
-            for (int i = sur.length - (sur.length / view); i < sur.length; i++) {
+            avg_r = avg_r / (float) (sur.length / view);
+            for (i = sur.length - (sur.length / view); i < sur.length; i++) {
                 if (min_view > sur[i]) {
                     min_view = sur[i];
                     hindernis = i;
                 }
+                avg_l += sur[i];
             }
+            avg_l = avg_l / (float) (sur.length - (sur.length / view));
             if (min_view < 30) {
                 velocity = 0;
-                rotate(0.1);
+                if (avg_l > avg_r) {
+                    rotate(-0.1);
+                } else {
+                    rotate(0.1);
+                }
             } else {
                 if (hindernis >= 0 && hindernis < sur.length / view) {
                     rotate(-0.1);
